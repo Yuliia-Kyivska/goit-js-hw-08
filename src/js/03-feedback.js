@@ -23,20 +23,20 @@ inputEmail.addEventListener('input', dataChanges);
 inputMessage.addEventListener('input', dataChanges);
 
 
-const onFormSubmit = e => {
-  e.preventDefault();
-  let storedTime = localStorage.getItem(STORAGE_KEY);
+const onLoad = e => {
+  let savedSettings = localStorage.getItem(STORAGE_KEY);
+ 
+
   
-  if (storedTime !== null) {
-    console.log(localStorage.getItem(STORAGE_KEY));
+  if (savedSettings !== null) {
+    const parsedSettings = JSON.parse(savedSettings);
+    inputEmail.value = parsedSettings.email;
+    inputMessage.value = parsedSettings.message;
   } 
-    e.currentTarget.reset();
-    localStorage.removeItem(STORAGE_KEY);
-  
 
-};
+   };
 
-window.addEventListener("load", onFormSubmit);
+window.addEventListener("load", onLoad);
 
 
 // player.on('input', throttle(onTimeUpdate, 500));
