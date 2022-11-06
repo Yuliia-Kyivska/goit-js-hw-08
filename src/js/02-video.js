@@ -4,32 +4,17 @@ import throttle from 'lodash.throttle';
 const STORAGE_KEY = "videoplayer-current-time";
 
 const iframe = document.querySelector('iframe');
-const player = new Vimeo.Player(iframe);
+const player = new Player(iframe);
 
+player.on('play', function () {
+  let storedTime = localStorage.getItem(STORAGE_KEY);
 
+  if (storedTime !== null) {
+    player.setCurrentTime(storedTime);
+  }
+});
+  
+player.on('timeupdate', throttle(function (data) {
+  localStorage.setItem(STORAGE_KEY, data.seconds);
+},1000));
 
-
-
-// function timePlayer() { 
-
-// }
-// const onPlay = function(data) {
-//     // data — це об’єкт, що містить властивості, характерні для цієї події
-// };
-
-// player.on('play', onPlay);
-
-
-//  player.setCurrentTime(1000).then(function(seconds) {
-//     // секунд = фактичний час, який гравець прагнув
-// }).catch(function(error) {
-//     switch (error.name) {
-//         case 'RangeError':
-//             // час був меншим за 0 або більшим за тривалість відео
-//             break;
-
-//         default:
-//             // сталася інша помилка
-//             break;
-//     }
-// });   
