@@ -51,4 +51,4 @@ refs.form.addEventListener('submit', onFormSubmit);
 refs.email.addEventListener('input', throttle(onEmailInput, 500));
 refs.textarea.addEventListener('input', throttle(onMessageInput, 500));
 
-saveInformation();
+saveInformation(refs.email, refs.textarea);
